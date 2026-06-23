@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+sqlalchemy[asyncio]
+asyncpg
+pydantic
+pydantic-settings
+redis
+arq
+structlog
+sentry-sdk
+pytest
+pytest-asyncio
+httpx
