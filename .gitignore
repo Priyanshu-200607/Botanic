@@ -57,3 +57,15 @@ stitch_export/
 # Databases
 *.sqlite3
 *.db
+
+# Agent planning files
+botanic2_status_report.md
+data.md
+PHASE5_CONTEXT.md
+TASK_TRACK.md
+update_plan.md
+supabase_guied.md
+feature_functionality.md
+
+# Uploaded images
+frontend/public/images/*.png
