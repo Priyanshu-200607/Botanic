@@ -15,9 +15,17 @@ class Settings(BaseSettings):
     # Supabase JWT
     SUPABASE_JWT_SECRET: str = "your-supabase-jwt-secret"
     
+    # Extra env vars from .env
+    SUPABASE_URL: str | None = None
+    SUPABASE_ANON_KEY: str | None = None
+    SUPABASE_SERVICE_ROLE_KEY: str | None = None
+    FRONTEND_URL: str | None = None
+    SECRET_KEY: str | None = None
+    ENVIRONMENT: str = "development"
+    
     # Sentry
     SENTRY_DSN: str | None = None
 
-    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True)
+    model_config = SettingsConfigDict(env_file=".env", case_sensitive=True, extra="ignore")
 
 settings = Settings()

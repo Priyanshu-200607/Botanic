@@ -12,19 +12,30 @@ class ProductStatus(str, enum.Enum):
     active = 'active'
     archived = 'archived'
 
+from sqlalchemy import Index
+
 class Product(Base):
     __tablename__ = "products"
+    __table_args__ = (
+        Index('idx_products_store_status', 'store_id', 'status'),
+    )
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     store_id = Column(UUID(as_uuid=True), ForeignKey("stores.id", ondelete="CASCADE"), nullable=False)
     name = Column(String, nullable=False)
     slug = Column(String, unique=True, nullable=False, index=True)
+    category = Column(String(100))
     description = Column(String)
     price = Column(Numeric(10, 2), nullable=False)
     stock = Column(Integer, nullable=False, default=0)
     status = Column(Enum(ProductStatus), nullable=False, default=ProductStatus.draft)
+    is_hidden = Column(Boolean, nullable=False, default=False)
     image_url = Column(String)
     created_by = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    approved_by = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    approved_at = Column(DateTime(timezone=True))
+    rejection_reason = Column(String)
+    deleted_at = Column(DateTime(timezone=True))
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
     updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
 

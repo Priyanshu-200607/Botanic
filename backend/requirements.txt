@@ -11,3 +11,4 @@ sentry-sdk
 pytest
 pytest-asyncio
 httpx
+pyjwt

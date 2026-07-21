@@ -14,8 +14,13 @@ class OrderStatus(str, enum.Enum):
     delivered = 'delivered'
     cancelled = 'cancelled'
 
+from sqlalchemy import Index
+
 class Order(Base):
     __tablename__ = "orders"
+    __table_args__ = (
+        Index('idx_orders_user_status', 'user_id', 'status'),
+    )
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
@@ -24,6 +29,7 @@ class Order(Base):
     subtotal = Column(Numeric(10, 2), nullable=False, default=0)
     tax_amount = Column(Numeric(10, 2), nullable=False, default=0)
     shipping_amount = Column(Numeric(10, 2), nullable=False, default=0)
+    platform_fee = Column(Numeric(10, 2), nullable=False, default=0)
     total_amount = Column(Numeric(10, 2), nullable=False)
     status = Column(Enum(OrderStatus), nullable=False, default=OrderStatus.pending)
     notes = Column(String)

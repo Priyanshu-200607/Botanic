@@ -17,11 +17,13 @@ class User(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, nullable=False, index=True)
-    name = Column(String, nullable=False)
+    first_name = Column(String)
+    last_name = Column(String)
     role = Column(Enum(UserRole), nullable=False, default=UserRole.customer)
     avatar_url = Column(String)
     phone = Column(String)
     is_active = Column(Boolean, nullable=False, default=True, index=True)
+    deleted_at = Column(DateTime(timezone=True))
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
     updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
 

@@ -11,6 +11,12 @@ class StoreRole(str, enum.Enum):
     owner = 'owner'
     staff = 'staff'
 
+class StoreStatus(str, enum.Enum):
+    pending = 'pending'
+    approved = 'approved'
+    rejected = 'rejected'
+    suspended = 'suspended'
+
 class Store(Base):
     __tablename__ = "stores"
 
@@ -20,7 +26,13 @@ class Store(Base):
     slug = Column(String, unique=True, nullable=False, index=True)
     description = Column(String)
     logo_url = Column(String)
+    banner_url = Column(String)
     is_active = Column(Boolean, nullable=False, default=True)
+    approval_status = Column(Enum(StoreStatus), nullable=False, default=StoreStatus.pending)
+    approved_by = Column(UUID(as_uuid=True), ForeignKey("users.id"))
+    approved_at = Column(DateTime(timezone=True))
+    rejection_reason = Column(String)
+    deleted_at = Column(DateTime(timezone=True))
     created_at = Column(DateTime(timezone=True), default=datetime.utcnow)
     updated_at = Column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow)
 
