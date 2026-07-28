@@ -69,3 +69,8 @@ feature_functionality.md
 
 # Uploaded images
 frontend/public/images/*.png
+
+# Sensitive folders & files
+genuine/
+deployment/
+DEVELOPER_GUIDE.md
