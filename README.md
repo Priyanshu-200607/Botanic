@@ -30,7 +30,7 @@ Botanic2 is a specialized marketplace designed to connect local nurseries and mi
 - **Database ORM**: async SQLAlchemy
 - **Data Validation**: Pydantic
 - **Background Tasks**: Redis + ARQ
-- **Architecture Standard**: Clean Architecture (Routers → Services → Repositories)
+- **Architecture Standard**: Flat Architecture (Routers → DB Models) for high developer velocity and reduced boilerplate
 
 ### **Infrastructure & Database**
 - **Database**: PostgreSQL (via Supabase)
@@ -42,12 +42,10 @@ Botanic2 is a specialized marketplace designed to connect local nurseries and mi
 
 ## 🏗 Architecture & System Design
 
-Botanic2 enforces **Clean Architecture** principles on the backend to ensure scalability and maintainability:
+Botanic2 utilizes a **Flat Architecture** on the backend to ensure high developer velocity and maintainability, having recently stripped out over-engineered boilerplate:
 
-1. **Routers Layer**: Handles HTTP requests/responses and JWT authorization.
-2. **Services Layer**: Encapsulates core business logic.
-3. **Repositories Layer**: Abstracts all direct database operations.
-4. **Models Layer**: SQLAlchemy database definitions perfectly mirrored with Supabase's SQL schema.
+1. **Routers Layer**: Handles HTTP requests/responses, JWT authorization, and directly orchestrates database operations.
+2. **Models Layer**: SQLAlchemy database definitions directly mirrored with Supabase's SQL schema using UUIDs.
 
 ### Database Highlights
 - 15+ heavily normalized tables with composite indexing.
@@ -78,7 +76,7 @@ Botanic2/
 │   │   └── api/          # FastAPI routers
 │   └── main.py           # Application entry point
 │
-└── ...docs               # MASTER_PLAN.md, status reports, and DB schemas
+└── genuine/              # Core project documentation (PRD, architecture, design rules)
 ```
 
 ---
@@ -115,8 +113,8 @@ uvicorn app.main:app --reload
 
 ## 📊 Current Project Status
 
-The project is actively in the **mid-development phase**. 
-- **Frontend**: ~90% complete. Premium UI/UX, dashboards, and complex checkout flows are fully designed and implemented with mock data, ready for backend integration.
-- **Backend**: Core architecture is set. Database schema is fully designed and optimized. Currently implementing the Clean Architecture layers (Services/Repositories) and specific business endpoints.
+The project is structurally initialized and ready for production deployment. 
+- **Frontend**: Premium UI/UX, dashboards, and complex checkout flows are fully designed using Tailwind and Zustand. Ready for deployment on Vercel.
+- **Backend**: Core architecture is fully implemented with a streamlined, flat routing structure. Database schema is fully optimized with strict Row Level Security. CI/CD pipelines for Supabase and Render are established.
 
-*See `MASTER_PLAN.md` and `botanic2_status_report.md` for a detailed breakdown of the development roadmap.*
+*See the `genuine/` directory for detailed architecture, design rules, and the complete Product Requirements Document (PRD).*
